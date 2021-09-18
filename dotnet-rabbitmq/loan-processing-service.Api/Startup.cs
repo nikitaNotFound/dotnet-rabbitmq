@@ -1,11 +1,18 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace publisher_api
+namespace consumer.Api
 {
     public class Startup
     {
@@ -21,7 +28,7 @@ namespace publisher_api
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "publisher_api", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "loan-processing-service.Api", Version = "v1"});
             });
         }
 
@@ -31,7 +38,7 @@ namespace publisher_api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "publisher_api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "loan-processing-service.Api v1"));
             }
 
             app.UseHttpsRedirection();

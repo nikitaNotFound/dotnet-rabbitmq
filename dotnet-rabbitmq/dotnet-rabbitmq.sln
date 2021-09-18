@@ -1,16 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "publisher.Api", "publisher.Api\publisher.Api.csproj", "{ED828272-4A40-4960-B316-4F595756579F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loan-service", "loan-service", "{3E2FA111-73A0-4113-A0D2-FF27B694A1E9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publisher", "publisher", "{3E2FA111-73A0-4113-A0D2-FF27B694A1E9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loan-processing-service", "loan-processing-service", "{65D389CE-2201-40C2-AC2E-11CE84DE358D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "consumer", "consumer", "{65D389CE-2201-40C2-AC2E-11CE84DE358D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loan-processing-service.Api", "loan-processing-service.Api\loan-processing-service.Api.csproj", "{4A04FF44-88F6-4493-B0A6-219ADAE7DB5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "consumer.Api", "consumer.Api\consumer.Api.csproj", "{4A04FF44-88F6-4493-B0A6-219ADAE7DB5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loan-processing-service.Domain", "loan-processing-service.Domain\loan-processing-service.Domain.csproj", "{FF622918-7099-4AF1-B846-289726858DBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "consumer.Domain", "consumer.Domain\consumer.Domain.csproj", "{FF622918-7099-4AF1-B846-289726858DBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loan-service.Domain", "loan-service.Domain\loan-service.Domain.csproj", "{2E399EED-D515-4971-9683-DCCFF3D1D941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "publisher.Domain", "publisher.Domain\publisher.Domain.csproj", "{2E399EED-D515-4971-9683-DCCFF3D1D941}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loan-service.Api", "loan-service.Api\loan-service.Api.csproj", "{D9D73C8F-439C-44DB-BC8C-035C1ED4BC74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shared.Lib", "shared.Lib\shared.Lib.csproj", "{3059565A-5CB0-4622-A329-2EFE44BC3AC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ED828272-4A40-4960-B316-4F595756579F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED828272-4A40-4960-B316-4F595756579F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED828272-4A40-4960-B316-4F595756579F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED828272-4A40-4960-B316-4F595756579F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A04FF44-88F6-4493-B0A6-219ADAE7DB5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A04FF44-88F6-4493-B0A6-219ADAE7DB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A04FF44-88F6-4493-B0A6-219ADAE7DB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,11 +32,19 @@ Global
 		{2E399EED-D515-4971-9683-DCCFF3D1D941}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E399EED-D515-4971-9683-DCCFF3D1D941}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E399EED-D515-4971-9683-DCCFF3D1D941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9D73C8F-439C-44DB-BC8C-035C1ED4BC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9D73C8F-439C-44DB-BC8C-035C1ED4BC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9D73C8F-439C-44DB-BC8C-035C1ED4BC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9D73C8F-439C-44DB-BC8C-035C1ED4BC74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3059565A-5CB0-4622-A329-2EFE44BC3AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3059565A-5CB0-4622-A329-2EFE44BC3AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3059565A-5CB0-4622-A329-2EFE44BC3AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3059565A-5CB0-4622-A329-2EFE44BC3AC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{ED828272-4A40-4960-B316-4F595756579F} = {3E2FA111-73A0-4113-A0D2-FF27B694A1E9}
 		{4A04FF44-88F6-4493-B0A6-219ADAE7DB5B} = {65D389CE-2201-40C2-AC2E-11CE84DE358D}
 		{FF622918-7099-4AF1-B846-289726858DBF} = {65D389CE-2201-40C2-AC2E-11CE84DE358D}
 		{2E399EED-D515-4971-9683-DCCFF3D1D941} = {3E2FA111-73A0-4113-A0D2-FF27B694A1E9}
+		{D9D73C8F-439C-44DB-BC8C-035C1ED4BC74} = {3E2FA111-73A0-4113-A0D2-FF27B694A1E9}
 	EndGlobalSection
 EndGlobal

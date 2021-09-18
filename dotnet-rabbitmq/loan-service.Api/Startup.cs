@@ -1,18 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using publisher.Domain.Extensions;
+using publisher.Domain.Options;
 
-namespace consumer.Api
+namespace publisher.Api
 {
     public class Startup
     {
@@ -28,8 +24,15 @@ namespace consumer.Api
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "consumer.Api", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "loan-service.Api", Version = "v1"});
             });
+
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq();
+            });
+
+            services.AddDomainServices(_config.GetSection("MongoDbOptions").Bind);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,7 +41,7 @@ namespace consumer.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "consumer.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "loan-service.Api v1"));
             }
 
             app.UseHttpsRedirection();

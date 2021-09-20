@@ -29,10 +29,18 @@ namespace publisher.Api
 
             services.AddMassTransit(x =>
             {
-                x.UsingRabbitMq();
-            });
+                x.SetKebabCaseEndpointNameFormatter();
 
-            services.AddDomainServices(_config.GetSection("MongoDbOptions").Bind);
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+            services.AddMassTransitHostedService();
+
+            services.AddDomainServices(
+                _config.GetSection("MongoDb").Bind,
+                _config.GetSection("BrokerEndpoints").Bind);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

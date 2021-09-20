@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using consumer.Domain.Options;
+using consumer.Domain.QueueConsumers;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +33,22 @@ namespace consumer.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "loan-processing-service.Api", Version = "v1"});
             });
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<LoanRequestConsumer>();
+
+                x.SetKebabCaseEndpointNameFormatter();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.ReceiveEndpoint("loan-request-processing", e =>
+                    {
+                        e.ConfigureConsumer<LoanRequestConsumer>(context);
+                    });
+                });
+            });
+            services.AddMassTransitHostedService();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -14,7 +14,7 @@ using shared.Lib.Models;
 namespace publisher.Api.Controllers
 {
     [ApiController]
-    [Route("api/loans")]
+    [Route("loans")]
     public class LoanController : ControllerBase
     {
         private readonly ILoanService _loanService;

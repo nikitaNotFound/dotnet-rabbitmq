@@ -12,9 +12,11 @@ namespace publisher.Domain.Extensions
     {
         public static IServiceCollection AddDomainServices(
             this IServiceCollection services,
-            Action<MongoDbOptions> configure)
+            Action<MongoDbOptions> configureMongo,
+            Action<BrokerEndpointsOptions> configureBrokerEndpoints)
         {
-            services.Configure(configure);
+            services.Configure(configureMongo);
+            services.Configure(configureBrokerEndpoints);
 
             services.AddScoped<ILoanService, LoanService>();
 

@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mapster;
 using MassTransit;
+using MassTransit.Contracts.JobService;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using publisher.Domain.Models;
@@ -15,25 +18,28 @@ namespace publisher.Domain.Services
     public class LoanService : ILoanService
     {
         private readonly MongoDbContext _context;
-        private readonly ISendEndpointProvider _sendEndpointProvider;
-        private readonly BrokerEndpointsOptions _brokerEndpoints;
+        private readonly IRequestClient<LoanRequestBroker> _requestClient;
+        private readonly ILogger<LoanService> _logger;
 
         public LoanService(
             MongoDbContext context,
-            ISendEndpointProvider sendEndpointProvider,
-            IOptions<BrokerEndpointsOptions> brokerEndpointsOptions)
+            IRequestClient<LoanRequestBroker> requestClient,
+            ILogger<LoanService> logger)
         {
             _context = context;
-            _sendEndpointProvider = sendEndpointProvider;
-            _brokerEndpoints = brokerEndpointsOptions.Value;
+            _requestClient = requestClient;
+            _logger = logger;
         }
 
         public async Task<LoanRequest> CreateLoanRequestAsync(LoanRequest loanRequest)
         {
+            loanRequest.Id ??= Guid.NewGuid().ToString();
             await _context.LoanRequests.InsertOneAsync(loanRequest);
 
-            var endpoint = await _sendEndpointProvider.GetSendEndpoint(_brokerEndpoints.LoanProcessingQueue);
-            await endpoint.Send(loanRequest.Adapt<LoanRequestBroker>());
+            Response<JobSubmissionAccepted> response = await _requestClient.GetResponse<JobSubmissionAccepted>(
+                loanRequest.Adapt<LoanRequestBroker>());
+
+            _logger.LogInformation($"Job with id = {response.Message.JobId} scheduled.");
 
             return loanRequest;
         }

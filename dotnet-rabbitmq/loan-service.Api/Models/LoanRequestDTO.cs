@@ -1,8 +1,10 @@
-﻿namespace publisher.Api.Models
+﻿using System;
+
+namespace publisher.Api.Models
 {
     public class LoanRequestDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 

@@ -1,4 +1,5 @@
 using MassTransit;
+using MassTransit.JobService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using publisher.Domain.Extensions;
 using publisher.Domain.Options;
+using shared.Lib.BrokerModels;
 
 namespace publisher.Api
 {
@@ -29,18 +31,23 @@ namespace publisher.Api
 
             services.AddMassTransit(x =>
             {
+                x.AddDelayedMessageScheduler();
+
+                x.AddRequestClient<LoanRequestBroker>();
+
                 x.SetKebabCaseEndpointNameFormatter();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
+                    cfg.UseDelayedMessageScheduler();
+
                     cfg.ConfigureEndpoints(context);
                 });
             });
             services.AddMassTransitHostedService();
 
             services.AddDomainServices(
-                _config.GetSection("MongoDb").Bind,
-                _config.GetSection("BrokerEndpoints").Bind);
+                _config.GetSection("MongoDb").Bind);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

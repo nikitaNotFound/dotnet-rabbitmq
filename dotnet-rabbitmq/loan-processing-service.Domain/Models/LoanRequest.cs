@@ -1,8 +1,10 @@
-﻿namespace consumer.Domain.QueueModels
+﻿using System;
+
+namespace consumer.Domain.Models
 {
     public class LoanRequest
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 

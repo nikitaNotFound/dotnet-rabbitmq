@@ -1,8 +1,12 @@
-﻿namespace publisher.Domain.Models
+﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace publisher.Domain.Models
 {
     public class LoanRequest
     {
-        public int Id { get; set; }
+        [BsonId]
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 

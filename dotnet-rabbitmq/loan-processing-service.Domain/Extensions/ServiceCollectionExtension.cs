@@ -1,12 +1,10 @@
 ﻿using System;
-
+using consumer.Domain.Options;
+using consumer.Domain.Services;
+using consumer.Domain.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-using publisher.Domain.Options;
-using publisher.Domain.Services;
-using publisher.Domain.Services.Interfaces;
-
-namespace publisher.Domain.Extensions
+namespace consumer.Domain.Extensions
 {
     public static class ServiceCollectionExtension
     {
@@ -16,9 +14,9 @@ namespace publisher.Domain.Extensions
         {
             services.Configure(configureMongo);
 
-            services.AddScoped<ILoanService, LoanService>();
-
             services.AddScoped<MongoDbContext>();
+
+            services.AddScoped<ILoanProcessingService, LoanProcessingService>();
 
             return services;
         }

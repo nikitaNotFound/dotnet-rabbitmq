@@ -49,7 +49,6 @@ namespace consumer.Api
                 x.AddConsumer<LoanRequestJobConsumer>(cfg =>
                 {
                     cfg.Options<JobOptions<LoanRequestBroker>>(options => options
-                        .SetJobTimeout(TimeSpan.FromSeconds(1))
                         .SetConcurrentJobLimit(3));
                 });
 
@@ -64,11 +63,7 @@ namespace consumer.Api
 
                     cfg.ServiceInstance(options, instance =>
                     {
-                        instance.ConfigureJobServiceEndpoints(js =>
-                        {
-                            js.SagaPartitionCount = 1;
-                            js.FinalizeCompleted = true;
-                        });
+                        instance.ConfigureJobServiceEndpoints();
 
                         instance.ConfigureEndpoints(context);
                     });
